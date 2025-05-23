@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <iostream>
 
 namespace http {
     class TcpServer {
@@ -13,14 +14,14 @@ namespace http {
         TcpServer(const std::string &ip, const int port);
         ~TcpServer();
     private:
-        int socket;
-        int new_socket;
-        std::string ip;
-        int port;
-        long incoming_message;
-        sockaddr_in socket_address;
-        unsigned int socket_address_len;
-        std::string server_message;
+        int m_socket;
+        int m_new_socket;
+        std::string m_ip;
+        int m_port;
+        long m_incoming_message;
+        sockaddr_in m_socket_address;
+        unsigned int m_socket_address_len;
+        std::string m_server_message;
         int start();
         void stop();
     };

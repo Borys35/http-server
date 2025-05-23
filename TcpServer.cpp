@@ -1,7 +1,7 @@
 #include "TcpServer.h"
 
 namespace http {
-    TcpServer::TcpServer(const std::string &ip, const int port) : ip(ip), port(port) {
+    TcpServer::TcpServer(const std::string &ip, const int port) : m_ip(ip), m_port(port) {
         start();
     }
 
@@ -10,18 +10,19 @@ namespace http {
     }
 
     int TcpServer::start() {
-        this->socket = socket(AF_INET, SOCK_STREAM, 0);
-        if (this->socket < 0) {
+        m_socket = socket(AF_INET, SOCK_STREAM, 0);
+        if (m_socket < 0) {
             // Error
-            exit(1);
+            std::cout << "socket creation failed." << std::endl;
             return 1;
         }
         return 0;
     }
 
     void TcpServer::stop() {
-        close(this->socket);
-        close(this->new_socket);
+        close(m_socket);
+        close(m_new_socket);
+
         exit(0);
     }
 
