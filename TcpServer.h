@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <sstream>
 #include <iostream>
 
 namespace http {
@@ -16,6 +17,8 @@ namespace http {
         void start_listen();
 
     private:
+        const int BUFFER_SIZE = 30720;
+
         int m_socket;
         int m_new_socket;
         std::string m_ip;
