@@ -2,14 +2,14 @@
 
 namespace http {
     TcpServer::TcpServer(const std::string &ip, const int port) : m_ip(ip), m_port(port) {
-        start();
+        start_server();
     }
 
     TcpServer::~TcpServer() {
-        stop();
+        stop_server();
     }
 
-    int TcpServer::start() {
+    int TcpServer::start_server() {
         m_socket = socket(AF_INET, SOCK_STREAM, 0);
         if (m_socket < 0) {
             // Error
@@ -19,7 +19,7 @@ namespace http {
         return 0;
     }
 
-    void TcpServer::stop() {
+    void TcpServer::stop_server() {
         close(m_socket);
         close(m_new_socket);
 
