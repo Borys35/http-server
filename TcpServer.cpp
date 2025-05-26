@@ -1,5 +1,7 @@
 #include "TcpServer.h"
 
+#include <fstream>
+
 namespace http {
     TcpServer::TcpServer(const std::string &ip, const int port) : m_ip(ip), m_port(port) {
         m_server_message = generate_response();
@@ -10,6 +12,7 @@ namespace http {
 
         if (start_server() != 0) {
             std::cout << "ERROR: Failed to start server." << std::endl;
+            exit(1);
         }
     }
 
@@ -47,22 +50,15 @@ namespace http {
 
         std::cout << "Listening on address: " << inet_ntoa(m_socket_address.sin_addr) << ", port: " << ntohs(m_socket_address.sin_port) << std::endl;
 
-        int bytesReceived;
 
         while (true) {
             std::cout << "Waiting for new connection..." << std::endl;
             accept_connection(m_new_socket);
 
-            char buffer[BUFFER_SIZE] = {0};
-            bytesReceived = read(m_new_socket, buffer, BUFFER_SIZE);
-            if (bytesReceived < 0) {
-                std::cout << "ERROR: read failed." << std::endl;
-                exit(1);
-            }
-
             std::cout << "Received request from client." << std::endl;
 
-            send_response();
+            // send_response();
+            handle_request();
 
             close(m_new_socket);
         }
@@ -95,6 +91,89 @@ namespace http {
         } else {
             std::cout << "ERROR: write failed." << std::endl;
         }
+    }
+
+    void TcpServer::handle_request() {
+        char buffer[BUFFER_SIZE] = {0};
+        int bytesReceived = read(m_new_socket, buffer, BUFFER_SIZE);
+        if (bytesReceived < 0) {
+            std::cout << "ERROR: read failed." << std::endl;
+            exit(1);
+        } if (bytesReceived == 0) {
+            std::cout << "Client disconnected" << std::endl;
+            exit(1);
+        }
+
+        std::cout << "Buffer: " << buffer << std::endl;
+
+        std::string path = parse_buffer(buffer);
+        std::cout << "Path: " << path << std::endl;
+
+        send_static_files(path);
+
+        // send_response();
+    }
+
+    std::string TcpServer::parse_buffer(const char *buffer) {
+        // GET /website1 HTTP/1.1
+        // Host: 0.0.0.0:6969
+        // User-Agent: curl/8.5.0
+        // Accept: */*
+
+        std::string b_str(buffer);
+        size_t first_space = b_str.find(' ');
+        size_t second_space = b_str.find(' ', first_space + 1);
+
+        if (first_space == std::string::npos || second_space == std::string::npos) {
+            return "/";
+        }
+
+        std::string path = b_str.substr(first_space + 1, second_space - first_space - 2);
+        return path;
+    }
+
+    void TcpServer::send_static_files(std::string& path) {
+        std::ifstream file("./htdocs/index.html", std::ios::binary | std::ios::ate);
+        if (!file.is_open()) {
+            std::cout << "ERROR: file cannot be opened." << std::endl;
+            return;
+        }
+        size_t file_size = file.tellg();
+        file.seekg(std::ios::beg);
+
+        std::ostringstream headers_oss;
+        headers_oss << "HTTP/1.1 200 OK\r\n";
+        headers_oss << "Content-Type: text/html\r\n";
+        headers_oss << "Content-Length: " << file_size << "\r\n";
+        headers_oss << "\r\n";
+        std::string headers = headers_oss.str();
+
+        long bytesSent = 0;
+        bytesSent = write(m_new_socket, headers.c_str(), headers.size());
+
+        if (bytesSent == headers.size()) {
+            std::cout << "Server sending headers." << std::endl;
+        } else {
+            std::cout << "ERROR: write failed." << std::endl;
+        }
+
+        char buffer[BUFFER_SIZE];
+        while (file.read(buffer, BUFFER_SIZE)) {
+            bytesSent = write(m_new_socket, buffer, file.gcount());
+            if (bytesSent < 0) {
+                std::cout << "ERROR" << std::endl;
+            }
+        }
+        if (file.gcount() > 0) {
+            std::cout << "Checking gcount outside while loop" << std::endl;
+            bytesSent = write(m_new_socket, buffer, file.gcount());
+            if (bytesSent < 0) {
+                std::cout << "ERROR" << std::endl;
+            }
+        }
+
+        file.close();
+        std::cout << "File sent successfully" << std::endl;
     }
 
 

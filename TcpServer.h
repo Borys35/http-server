@@ -32,6 +32,9 @@ namespace http {
         void stop_server();
         void accept_connection(int &new_socket);
         std::string generate_response();
+        void handle_request();
+        std::string parse_buffer(const char *buffer);
         void send_response();
+        void send_static_files(std::string& path);
     };
 }
