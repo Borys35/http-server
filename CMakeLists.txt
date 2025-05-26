@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add source files (.cpp)
-add_executable(http_server
+add_executable(http
     main.cpp
     TcpServer.h
     TcpServer.cpp

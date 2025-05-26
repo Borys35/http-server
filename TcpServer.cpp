@@ -101,7 +101,7 @@ namespace http {
             exit(1);
         } if (bytesReceived == 0) {
             std::cout << "Client disconnected" << std::endl;
-            exit(1);
+            // exit(1);
         }
 
         std::cout << "Buffer: " << buffer << std::endl;
@@ -137,14 +137,28 @@ namespace http {
         std::ifstream file(file_path, std::ios::binary | std::ios::ate);
         if (!file.is_open()) {
             std::cout << "ERROR: file cannot be opened." << std::endl;
+
+            std::ostringstream headers_oss;
+            headers_oss << "HTTP/1.1 404 OK\r\n";
+            headers_oss << "\r\n";
+            std::string headers = headers_oss.str();
+            write(m_new_socket, headers.c_str(), headers.size());
+
             return;
         }
         size_t file_size = file.tellg();
         file.seekg(std::ios::beg);
 
+        std::string mime = "text/html";
+        if (path.rfind(".css") == (path.size() - 4)) {
+            mime = "text/css";
+        } else if (path.rfind(".js") == (path.size() - 3)) {
+            mime = "text/javascript";
+        }
+
         std::ostringstream headers_oss;
         headers_oss << "HTTP/1.1 200 OK\r\n";
-        headers_oss << "Content-Type: text/html\r\n";
+        headers_oss << "Content-Type: " << mime << "\r\n";
         headers_oss << "Content-Length: " << file_size << "\r\n";
         headers_oss << "\r\n";
         std::string headers = headers_oss.str();

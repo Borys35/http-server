@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named http_server
+# Target rules for targets named http
 
 # Build rule for target.
-http_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 http_server
-.PHONY : http_server
+http: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 http
+.PHONY : http
 
 # fast build rule for target.
-http_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/build
-.PHONY : http_server/fast
+http/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/build
+.PHONY : http/fast
 
 TcpServer.o: TcpServer.cpp.o
 .PHONY : TcpServer.o
 
 # target to build an object file
 TcpServer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/TcpServer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/TcpServer.cpp.o
 .PHONY : TcpServer.cpp.o
 
 TcpServer.i: TcpServer.cpp.i
@@ -142,7 +142,7 @@ TcpServer.i: TcpServer.cpp.i
 
 # target to preprocess a source file
 TcpServer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/TcpServer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/TcpServer.cpp.i
 .PHONY : TcpServer.cpp.i
 
 TcpServer.s: TcpServer.cpp.s
@@ -150,7 +150,7 @@ TcpServer.s: TcpServer.cpp.s
 
 # target to generate assembly for a file
 TcpServer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/TcpServer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/TcpServer.cpp.s
 .PHONY : TcpServer.cpp.s
 
 main.o: main.cpp.o
@@ -158,7 +158,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -166,7 +166,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -174,7 +174,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_server.dir/build.make CMakeFiles/http_server.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http.dir/build.make CMakeFiles/http.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -185,7 +185,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... http_server"
+	@echo "... http"
 	@echo "... TcpServer.o"
 	@echo "... TcpServer.i"
 	@echo "... TcpServer.s"
