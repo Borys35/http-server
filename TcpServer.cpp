@@ -128,12 +128,13 @@ namespace http {
             return "/";
         }
 
-        std::string path = b_str.substr(first_space + 1, second_space - first_space - 2);
+        std::string path = b_str.substr(first_space + 1, second_space - first_space - 1);
         return path;
     }
 
     void TcpServer::send_static_files(std::string& path) {
-        std::ifstream file("./htdocs/index.html", std::ios::binary | std::ios::ate);
+        std::string file_path = BASE_DIR + path; // Valid path: ./htdocs/index.html
+        std::ifstream file(file_path, std::ios::binary | std::ios::ate);
         if (!file.is_open()) {
             std::cout << "ERROR: file cannot be opened." << std::endl;
             return;
@@ -165,7 +166,6 @@ namespace http {
             }
         }
         if (file.gcount() > 0) {
-            std::cout << "Checking gcount outside while loop" << std::endl;
             bytesSent = write(m_new_socket, buffer, file.gcount());
             if (bytesSent < 0) {
                 std::cout << "ERROR" << std::endl;
