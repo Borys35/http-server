@@ -107,7 +107,7 @@ namespace http {
         std::cout << "Buffer: " << buffer << std::endl;
 
         std::string path = parse_buffer(buffer);
-        std::cout << "Path: " << path << std::endl;
+        std::cout << "Parsed Path: " << path << std::endl;
 
         send_static_files(path);
 

@@ -1,7 +1,7 @@
 CMakeFiles/http.dir/TcpServer.cpp.o: \
- /home/borys/cpp_projects/http-server/TcpServer.cpp \
+ /home/borys/Documents/Cpp/http-server/TcpServer.cpp \
  /usr/include/stdc-predef.h \
- /home/borys/cpp_projects/http-server/TcpServer.h /usr/include/stdio.h \
+ /home/borys/Documents/Cpp/http-server/TcpServer.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

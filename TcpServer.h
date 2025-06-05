@@ -18,7 +18,7 @@ namespace http {
 
     private:
         const int BUFFER_SIZE = 30720;
-        const std::string BASE_DIR = "./htdocs";
+        const std::string BASE_DIR = "../htdocs";
 
         int m_socket;
         int m_new_socket;

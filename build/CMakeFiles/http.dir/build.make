@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/borys/cpp_projects/http-server
+CMAKE_SOURCE_DIR = /home/borys/Documents/Cpp/http-server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/borys/cpp_projects/http-server/build
+CMAKE_BINARY_DIR = /home/borys/Documents/Cpp/http-server/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/http.dir/depend.make
@@ -70,32 +70,32 @@ include CMakeFiles/http.dir/progress.make
 include CMakeFiles/http.dir/flags.make
 
 CMakeFiles/http.dir/main.cpp.o: CMakeFiles/http.dir/flags.make
-CMakeFiles/http.dir/main.cpp.o: /home/borys/cpp_projects/http-server/main.cpp
+CMakeFiles/http.dir/main.cpp.o: /home/borys/Documents/Cpp/http-server/main.cpp
 CMakeFiles/http.dir/main.cpp.o: CMakeFiles/http.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/borys/cpp_projects/http-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/http.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/http.dir/main.cpp.o -MF CMakeFiles/http.dir/main.cpp.o.d -o CMakeFiles/http.dir/main.cpp.o -c /home/borys/cpp_projects/http-server/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/borys/Documents/Cpp/http-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/http.dir/main.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/http.dir/main.cpp.o -MF CMakeFiles/http.dir/main.cpp.o.d -o CMakeFiles/http.dir/main.cpp.o -c /home/borys/Documents/Cpp/http-server/main.cpp
 
 CMakeFiles/http.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/http.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/borys/cpp_projects/http-server/main.cpp > CMakeFiles/http.dir/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/borys/Documents/Cpp/http-server/main.cpp > CMakeFiles/http.dir/main.cpp.i
 
 CMakeFiles/http.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/http.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/borys/cpp_projects/http-server/main.cpp -o CMakeFiles/http.dir/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/borys/Documents/Cpp/http-server/main.cpp -o CMakeFiles/http.dir/main.cpp.s
 
 CMakeFiles/http.dir/TcpServer.cpp.o: CMakeFiles/http.dir/flags.make
-CMakeFiles/http.dir/TcpServer.cpp.o: /home/borys/cpp_projects/http-server/TcpServer.cpp
+CMakeFiles/http.dir/TcpServer.cpp.o: /home/borys/Documents/Cpp/http-server/TcpServer.cpp
 CMakeFiles/http.dir/TcpServer.cpp.o: CMakeFiles/http.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/borys/cpp_projects/http-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/http.dir/TcpServer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/http.dir/TcpServer.cpp.o -MF CMakeFiles/http.dir/TcpServer.cpp.o.d -o CMakeFiles/http.dir/TcpServer.cpp.o -c /home/borys/cpp_projects/http-server/TcpServer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/borys/Documents/Cpp/http-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/http.dir/TcpServer.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/http.dir/TcpServer.cpp.o -MF CMakeFiles/http.dir/TcpServer.cpp.o.d -o CMakeFiles/http.dir/TcpServer.cpp.o -c /home/borys/Documents/Cpp/http-server/TcpServer.cpp
 
 CMakeFiles/http.dir/TcpServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/http.dir/TcpServer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/borys/cpp_projects/http-server/TcpServer.cpp > CMakeFiles/http.dir/TcpServer.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/borys/Documents/Cpp/http-server/TcpServer.cpp > CMakeFiles/http.dir/TcpServer.cpp.i
 
 CMakeFiles/http.dir/TcpServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/http.dir/TcpServer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/borys/cpp_projects/http-server/TcpServer.cpp -o CMakeFiles/http.dir/TcpServer.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/borys/Documents/Cpp/http-server/TcpServer.cpp -o CMakeFiles/http.dir/TcpServer.cpp.s
 
 # Object files for target http
 http_OBJECTS = \
@@ -109,7 +109,7 @@ http: CMakeFiles/http.dir/main.cpp.o
 http: CMakeFiles/http.dir/TcpServer.cpp.o
 http: CMakeFiles/http.dir/build.make
 http: CMakeFiles/http.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/borys/cpp_projects/http-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable http"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/borys/Documents/Cpp/http-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable http"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/http.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -121,6 +121,6 @@ CMakeFiles/http.dir/clean:
 .PHONY : CMakeFiles/http.dir/clean
 
 CMakeFiles/http.dir/depend:
-	cd /home/borys/cpp_projects/http-server/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/borys/cpp_projects/http-server /home/borys/cpp_projects/http-server /home/borys/cpp_projects/http-server/build /home/borys/cpp_projects/http-server/build /home/borys/cpp_projects/http-server/build/CMakeFiles/http.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/borys/Documents/Cpp/http-server/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/borys/Documents/Cpp/http-server /home/borys/Documents/Cpp/http-server /home/borys/Documents/Cpp/http-server/build /home/borys/Documents/Cpp/http-server/build /home/borys/Documents/Cpp/http-server/build/CMakeFiles/http.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/http.dir/depend
 

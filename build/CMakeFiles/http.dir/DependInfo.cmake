@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/borys/cpp_projects/http-server/TcpServer.cpp" "CMakeFiles/http.dir/TcpServer.cpp.o" "gcc" "CMakeFiles/http.dir/TcpServer.cpp.o.d"
-  "/home/borys/cpp_projects/http-server/main.cpp" "CMakeFiles/http.dir/main.cpp.o" "gcc" "CMakeFiles/http.dir/main.cpp.o.d"
+  "/home/borys/Documents/Cpp/http-server/TcpServer.cpp" "CMakeFiles/http.dir/TcpServer.cpp.o" "gcc" "CMakeFiles/http.dir/TcpServer.cpp.o.d"
+  "/home/borys/Documents/Cpp/http-server/main.cpp" "CMakeFiles/http.dir/main.cpp.o" "gcc" "CMakeFiles/http.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
