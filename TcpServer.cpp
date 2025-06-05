@@ -25,7 +25,6 @@ namespace http {
     int TcpServer::start_server() {
         m_socket = socket(AF_INET, SOCK_STREAM, 0);
         if (m_socket < 0) {
-            // Error
             std::cout << "ERROR: Socket creation failed." << std::endl;
             return 1;
         }
@@ -60,7 +59,6 @@ namespace http {
 
             std::cout << "Received request from client." << std::endl;
 
-            // send_response();
             handle_request();
 
             close(m_new_socket);
@@ -104,17 +102,11 @@ namespace http {
             exit(1);
         } if (bytesReceived == 0) {
             std::cout << "Client disconnected" << std::endl;
-            // exit(1);
         }
 
-        std::cout << "Buffer: " << buffer << std::endl;
-
         std::string path = parse_buffer(buffer);
-        std::cout << "Parsed Path: " << path << std::endl;
 
         send_static_files(path);
-
-        // send_response();
     }
 
     std::string TcpServer::parse_buffer(const char *buffer) {
@@ -137,27 +129,18 @@ namespace http {
 
     void TcpServer::send_static_files(std::string& path) {
         std::string file_path = BASE_DIR + path; // Valid path: ./htdocs/index.html
-        // file_path = "./htdocs/index.html";
-        std::cout << "File-path: " << file_path << std::endl;
 
-        // check if exists
-        // then check if directory
-        // if dir, add /index.html at the end
         if (!std::filesystem::exists(file_path)) {
             std::cout << "ERROR: File doesn't exist" << std::endl;
-
             send_404_response();
-
             return;
-            // TODO: distinguish directory and file
         } else if (std::filesystem::is_directory(file_path)) {
-            std::cout << "it's directory" << std::endl;
             if (file_path.back() == '/')
                 file_path += "index.html";
             else
-                file_path += "/index.html";
+                send_404_response();
         }
-        std::cout << "New File-path: " << file_path << std::endl;
+
         std::ifstream file(file_path, std::ios::binary | std::ios::ate);
         if (!file.is_open()) {
             std::cout << "ERROR: File cannot be opened." << std::endl;

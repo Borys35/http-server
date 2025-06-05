@@ -17,7 +17,7 @@ namespace http {
         void start_listen();
 
     private:
-        const int BUFFER_SIZE = 30720;
+        const int BUFFER_SIZE = 2048;
         const std::string BASE_DIR = "./htdocs";
 
         int m_socket;
