@@ -1,6 +1,8 @@
 #include "TcpServer.h"
 
 #include <fstream>
+#include <filesystem>
+#include <cstring>
 
 namespace http {
     TcpServer::TcpServer(const std::string &ip, const int port) : m_ip(ip), m_port(port) {
@@ -24,12 +26,13 @@ namespace http {
         m_socket = socket(AF_INET, SOCK_STREAM, 0);
         if (m_socket < 0) {
             // Error
-            std::cout << "ERROR: socket creation failed." << std::endl;
+            std::cout << "ERROR: Socket creation failed." << std::endl;
             return 1;
         }
 
         if (bind(m_socket, reinterpret_cast<sockaddr *>(&m_socket_address), m_socket_address_len) < 0) {
-            std::cout << "ERROR: socket bind failed." << std::endl;
+            std::cout << "ERROR: Socket bind failed: " << std::strerror(errno) << std::endl;
+            
             return 1;
         }
         return 0;
@@ -89,7 +92,7 @@ namespace http {
         if (bytesSent == m_server_message.size()) {
             std::cout << "Server sending response." << std::endl;
         } else {
-            std::cout << "ERROR: write failed." << std::endl;
+            std::cout << "ERROR: Write failed." << std::endl;
         }
     }
 
@@ -97,7 +100,7 @@ namespace http {
         char buffer[BUFFER_SIZE] = {0};
         int bytesReceived = read(m_new_socket, buffer, BUFFER_SIZE);
         if (bytesReceived < 0) {
-            std::cout << "ERROR: read failed." << std::endl;
+            std::cout << "ERROR: Read failed." << std::endl;
             exit(1);
         } if (bytesReceived == 0) {
             std::cout << "Client disconnected" << std::endl;
@@ -134,18 +137,35 @@ namespace http {
 
     void TcpServer::send_static_files(std::string& path) {
         std::string file_path = BASE_DIR + path; // Valid path: ./htdocs/index.html
+        // file_path = "./htdocs/index.html";
+        std::cout << "File-path: " << file_path << std::endl;
+
+        // check if exists
+        // then check if directory
+        // if dir, add /index.html at the end
+        if (std::filesystem::exists("../" + file_path)) {
+            std::cout << "ERROR: File doesn't exist" << std::endl;
+            return;
+            // TODO: distinguish directory and file
+        } else if (!std::filesystem::is_regular_file("../" + file_path)) {
+            if (file_path.back() == '/')
+                file_path += "index.html";
+            else
+                file_path += "/index.html";
+        }
+        std::cout << "New File-path: " << file_path << std::endl;
         std::ifstream file(file_path, std::ios::binary | std::ios::ate);
         if (!file.is_open()) {
-            std::cout << "ERROR: file cannot be opened." << std::endl;
-
+            std::cout << "ERROR: File cannot be opened." << std::endl;
+            
             std::ostringstream headers_oss;
             headers_oss << "HTTP/1.1 404 OK\r\n";
             headers_oss << "\r\n";
             std::string headers = headers_oss.str();
             write(m_new_socket, headers.c_str(), headers.size());
-
+            
             return;
-        }
+        } 
         size_t file_size = file.tellg();
         file.seekg(std::ios::beg);
 
