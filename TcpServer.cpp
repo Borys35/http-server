@@ -143,11 +143,15 @@ namespace http {
         // check if exists
         // then check if directory
         // if dir, add /index.html at the end
-        if (std::filesystem::exists("../" + file_path)) {
+        if (!std::filesystem::exists(file_path)) {
             std::cout << "ERROR: File doesn't exist" << std::endl;
+
+            send_404_response();
+
             return;
             // TODO: distinguish directory and file
-        } else if (!std::filesystem::is_regular_file("../" + file_path)) {
+        } else if (std::filesystem::is_directory(file_path)) {
+            std::cout << "it's directory" << std::endl;
             if (file_path.back() == '/')
                 file_path += "index.html";
             else
@@ -158,11 +162,7 @@ namespace http {
         if (!file.is_open()) {
             std::cout << "ERROR: File cannot be opened." << std::endl;
             
-            std::ostringstream headers_oss;
-            headers_oss << "HTTP/1.1 404 OK\r\n";
-            headers_oss << "\r\n";
-            std::string headers = headers_oss.str();
-            write(m_new_socket, headers.c_str(), headers.size());
+            send_404_response();
             
             return;
         } 
@@ -210,5 +210,12 @@ namespace http {
         std::cout << "File sent successfully" << std::endl;
     }
 
-
+    void TcpServer::send_404_response()
+    {
+        std::ostringstream headers_oss;
+        headers_oss << "HTTP/1.1 404 OK\r\n";
+        headers_oss << "\r\n";
+        std::string headers = headers_oss.str();
+        write(m_new_socket, headers.c_str(), headers.size());
+    }
 }

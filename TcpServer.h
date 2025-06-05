@@ -37,5 +37,6 @@ namespace http {
         std::string parse_buffer(const char *buffer);
         void send_response();
         void send_static_files(std::string& path);
+        void send_404_response();
     };
 }
