@@ -205,10 +205,15 @@ namespace http {
 
     void TcpServer::send_404_response()
     {
+        std::string body = "<html><body><h1>404 Not Found</h1></body></html>";
         std::ostringstream headers_oss;
         headers_oss << "HTTP/1.1 404 Not Found\r\n";
+        headers_oss << "Content-Type: text/html\r\n";
+        headers_oss << "Content-Length: " << body.size() << "\r\n";
+        headers_oss << "Connection: close\r\n";
         headers_oss << "\r\n";
         std::string headers = headers_oss.str();
-        write(m_new_socket, headers.c_str(), headers.size());
+        std::string response = headers + body;
+        write(m_new_socket, response.c_str(), response.size());
     }
 }
