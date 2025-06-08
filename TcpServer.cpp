@@ -104,15 +104,21 @@ namespace http {
             std::cout << "Client disconnected" << std::endl;
         }
 
-        std::string path = parse_buffer(buffer);
+        // std::string path = parse_buffer(buffer);
+        ParsedBuffer b = parse_buffer(buffer);
 
-        send_static_files(path);
+        if (b.method != "GET") {
+            send_404_response();
+            return;
+        }
+
+        send_static_files(b.path);
     }
 
-    std::string TcpServer::parse_buffer(const char *buffer) {
+    TcpServer::ParsedBuffer TcpServer::parse_buffer(const char *buffer) {
         // GET /website1 HTTP/1.1
         // Host: 0.0.0.0:6969
-        // User-Agent: curl/8.5.0
+        // User-Agent: curl/8.5.0%
         // Accept: */*
 
         std::string b_str(buffer);
@@ -120,11 +126,13 @@ namespace http {
         size_t second_space = b_str.find(' ', first_space + 1);
 
         if (first_space == std::string::npos || second_space == std::string::npos) {
-            return "/";
+            return {"/", "GET"};
         }
 
         std::string path = b_str.substr(first_space + 1, second_space - first_space - 1);
-        return path;
+        std::string method = b_str.substr(0, first_space);
+
+        return {path, method};
     }
 
     void TcpServer::send_static_files(std::string& path) {
@@ -137,8 +145,10 @@ namespace http {
         } else if (std::filesystem::is_directory(file_path)) {
             if (file_path.back() == '/')
                 file_path += "index.html";
-            else
+            else {
                 send_404_response();
+                return;
+            }
         }
 
         std::ifstream file(file_path, std::ios::binary | std::ios::ate);
@@ -196,7 +206,7 @@ namespace http {
     void TcpServer::send_404_response()
     {
         std::ostringstream headers_oss;
-        headers_oss << "HTTP/1.1 404 OK\r\n";
+        headers_oss << "HTTP/1.1 404 Not Found\r\n";
         headers_oss << "\r\n";
         std::string headers = headers_oss.str();
         write(m_new_socket, headers.c_str(), headers.size());

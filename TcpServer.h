@@ -16,9 +16,14 @@ namespace http {
         ~TcpServer();
         void start_listen();
 
+        struct ParsedBuffer {
+            std::string path;
+            std::string method;
+        };
     private:
         const int BUFFER_SIZE = 2048;
         const std::string BASE_DIR = "./htdocs";
+
 
         int m_socket;
         int m_new_socket;
@@ -34,7 +39,7 @@ namespace http {
         void accept_connection(int &new_socket);
         std::string generate_response();
         void handle_request();
-        std::string parse_buffer(const char *buffer);
+        ParsedBuffer parse_buffer(const char *buffer);
         void send_response();
         void send_static_files(std::string& path);
         void send_404_response();
